@@ -1,5 +1,18 @@
 # -*- coding: utf-8 -*-
 
+"""
+legofy.gui
+----------
+
+This module contains a gui for legofy.
+
+
+    USAGE:
+    >>> legofy.gui
+
+See README for project details.
+"""
+
 import os
 
 import tkinter as tk
