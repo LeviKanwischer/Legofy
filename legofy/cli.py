@@ -1,6 +1,18 @@
 # -*- coding: utf -*-
 
-'''Command line interface to Legofy'''
+"""
+legofy.cli
+----------
+
+This module contains the command line interface for legofy.
+
+
+    USAGE:
+    $ python legofy/cli.py
+
+See README for project details.
+"""
+
 import click
 import legofy
 from legofy import palettes
