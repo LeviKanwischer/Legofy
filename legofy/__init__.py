@@ -2,9 +2,10 @@
 
 from __future__ import unicode_literals
 
-from PIL import Image, ImageSequence
-import sys
 import os
+import sys
+
+from PIL import Image, ImageSequence
 
 from legofy import images2gif
 from legofy import palettes
