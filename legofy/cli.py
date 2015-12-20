@@ -35,3 +35,7 @@ def main(image, output, size, palette, dither):
     '''Legofy an image!'''
     legofy.main(image, output_path=output, size=size,
                 palette_mode=palette, dither=dither)
+
+
+if __name__ == '__main__':
+    main()
