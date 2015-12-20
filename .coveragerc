@@ -1,5 +1,5 @@
 [report]
 omit =
-    legofy/images2gif_py*
+    legofy/images2gif/
     legofy/cli.py
-    legofy/legofy_gui.py
+    legofy/gui.py
