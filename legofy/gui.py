@@ -8,7 +8,7 @@ This module contains a gui for legofy.
 
 
     USAGE:
-    >>> legofy.gui
+    $ python legofy/gui.py
 
 See README for project details.
 """
