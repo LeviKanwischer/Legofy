@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
 import os
-import legofy
+
 import tkinter as tk
-import tkinter.ttk as ttk
 from tkinter import filedialog
 import tkinter.messagebox as tkmsg
+import tkinter.ttk as ttk
+
+import legofy
+
 
 LEGO_PALETTE = ('none', 'solid', 'transparent', 'effects', 'mono', 'all', )
 
