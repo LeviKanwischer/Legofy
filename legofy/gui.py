@@ -8,9 +8,11 @@ import tkinter.messagebox as tkmsg
 import tkinter.ttk as ttk
 
 import legofy
+from legofy import palettes
 
 
-LEGO_PALETTE = ('none', 'solid', 'transparent', 'effects', 'mono', 'all', )
+legos = tuple(palettes.legos().keys())
+
 
 class LegofyGui(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -43,7 +45,7 @@ class LegofyGuiMainFrame(tk.Frame):
         self.colorPaletteLabel.grid(row=0, column=0 )
 
         self.colorPalette = ttk.Combobox(self.groupFrame)
-        self.colorPalette['values'] = LEGO_PALETTE
+        self.colorPalette['values'] = legos
         self.colorPalette.current(0)
         self.colorPalette.grid(row=0, column=1)
 
@@ -78,7 +80,7 @@ class LegofyGuiMainFrame(tk.Frame):
 
                 palette = self.colorPalette.get()
 
-                if palette in LEGO_PALETTE and palette != 'none':
+                if palette in legos and palette != 'none':
                     legofy.main(self.chosenFile.name, size=self.brickNumberScale.get(), palette_mode=palette)
                 else:
                     legofy.main(self.chosenFile.name, size=self.brickNumberScale.get())
