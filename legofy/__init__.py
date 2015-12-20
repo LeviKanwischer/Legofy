@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+"""
+Legofy is a python program that takes a static image or gif and makes it
+so that it looks as if it was built out of LEGO.
+
+
+See README for project details.
+"""
 from __future__ import unicode_literals
 
 import os
