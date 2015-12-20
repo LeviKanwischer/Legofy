@@ -1,3 +1,5 @@
+# -*- coding: utf -*-
+
 '''Command line interface to Legofy'''
 import click
 import legofy
