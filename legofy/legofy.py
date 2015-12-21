@@ -124,15 +124,15 @@ def convert(image, outfile=None, size=None, palette=None, dither=False):
     brick = Image.open(brick)
 
     if image.lower().endswith('.gif') and im.is_animated:
-        convert_gif(im, brick, outfile, size, palette, dither)
+        make_gif(im, brick, outfile, size, palette, dither)
     else:
-        convert_image(im, brick, outfile, size, palette, dither)
+        make_image(im, brick, outfile, size, palette, dither)
 
     im.close()
     brick.close()
 
 
-def convert_gif(image, brick, outfile, size, palette, dither):
+def make_gif(image, brick, outfile, size, palette, dither):
     """Convert animated image into legofied version."""
     converted = []
     for frame in [frame.copy() for frame in ImageSequence.Iterator(image)]:
@@ -149,7 +149,7 @@ def convert_gif(image, brick, outfile, size, palette, dither):
     images2gif.writeGif(outfile, converted, duration=duration, dither=0, subRectangles=False)
 
 
-def convert_image(image, brick, outfile, size, palette, dither):
+def make_image(image, brick, outfile, size, palette, dither):
     """Convert static image into legofied version."""
     _size = get_new_size(image, brick, size)
     image.thumbnail(_size, Image.ANTIALIAS)
