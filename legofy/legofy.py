@@ -13,18 +13,20 @@ This module contains the base codebase for legofy.
 
 See README for project details.
 """
-from __future__ import absolute_import, print_function
+from __future__ import division, print_function
+# TODO: Add future/builtins to package install for 3 style range
+# from builtins import range
 
 import os
 
 from PIL import Image, ImageSequence
 
-from legofy import images2gif
-from legofy import palettes
+from .images2gif import writeGif
+from . import palettes
 
 
 def apply_color_overlay(image, color):
-    '''Small function to apply an effect over an entire image'''
+    """Apply color effect overlay to image."""
     overlay_red, overlay_green, overlay_blue = color
     channels = image.split()
 
@@ -40,7 +42,7 @@ def apply_color_overlay(image, color):
 
 
 def overlay_effect(color, overlay):
-    '''Actual overlay effect function'''
+    """Generate color overlays."""
     if color < 33:
         return overlay - 100
     elif color > 233:
@@ -49,108 +51,90 @@ def overlay_effect(color, overlay):
         return overlay - 133 + color
 
 
-def make_lego_image(thumbnail_image, brick_image):
-    '''Create a lego version of an image from an image'''
-    base_width, base_height = thumbnail_image.size
-    brick_width, brick_height = brick_image.size
+def make_lego_image(image, brick):
+    """Make legofied version of original static image."""
+    image_width, image_height = image.size
+    brick_width, brick_height = brick.size
 
-    rgb_image = thumbnail_image.convert('RGB')
+    width = image_width * brick_width
+    height = image_height * brick_height
 
-    lego_image = Image.new("RGB", (base_width * brick_width,
-                                   base_height * brick_height), "white")
+    rgb = image.convert('RGB')
+    lego = Image.new('RGB', (width, height), 'white')
+    for x in range(image_width):
+        for y in range(image_height):
+            color = rgb.getpixel((x, y))
+            effect = apply_color_overlay(brick, color)
+            lego.paste(effect, (x*brick_width, y*brick_height))
+    return lego
 
-    for brick_x in range(base_width):
-        for brick_y in range(base_height):
-            color = rgb_image.getpixel((brick_x, brick_y))
-            lego_image.paste(apply_color_overlay(brick_image, color),
-                             (brick_x * brick_width, brick_y * brick_height))
-    return lego_image
 
-
-def get_new_filename(file_path, ext_override=None):
-    '''Returns the save destination file path'''
-    folder, basename = os.path.split(file_path)
+def get_new_filename(infile, ext=None):
+    """Return save destination for missing outfile."""
+    folder, basename = os.path.split(infile)
     base, extention = os.path.splitext(basename)
-    if ext_override:
-        extention = ext_override
-    new_filename = os.path.join(folder, "{0}_lego{1}".format(base, extention))
-    return new_filename
+    extention = ext if ext else extention
+    outfile = os.path.join(folder, '{}_lego{}'.format(base, extention))
+    return outfile
 
 
-def get_new_size(base_image, brick_image, size=None):
-    '''Returns a new size the first image should be so that the second one fits neatly in the longest axis'''
-    new_size = base_image.size
-    if size:
-        scale_x, scale_y = size, size
-    else:
-        scale_x, scale_y = brick_image.size
-
-    if new_size[0] > scale_x or new_size[1] > scale_y:
-        if new_size[0] < new_size[1]:
-            scale = new_size[1] / scale_y
+def get_new_size(image, brick, size=None):
+    """Generate legofied image size."""
+    # Legofied image should fit along largest original axis
+    width, height = (size, size) if size else brick.size
+    image_size = image.size
+    
+    if image_size[0] > width or image_size[1] > height:
+        if image_size[0] > image_size[1]:
+            scale = image_size[0] // width
         else:
-            scale = new_size[0] / scale_x
+            scale = image_size[1] // height
 
-        new_size = (int(round(new_size[0] / scale)) or 1,
-                    int(round(new_size[1] / scale)) or 1)
-
-    return new_size
+        image_size = (image_size[0] // scale or 1, image_size[1] // scale or 1)
+    return image_size
 
 
 def get_lego_palette(palette):
-    '''Gets the palette for the specified lego palette mode'''
+    """Get specified palette color mapping array."""
     legos = palettes.legos()
     palette = legos[palette]
     return palettes.extend_palette(palette)
 
 
 def apply_thumbnail_effects(image, palette, dither):
-    '''Apply effects on the reduced image before Legofying'''
-    palette_image = Image.new("P", (1, 1))
-    palette_image.putpalette(palette)
-    return image.im.convert("P",
-                        Image.FLOYDSTEINBERG if dither else Image.NONE,
-                        palette_image.im)
+    """Apply effect on thumbnail image, pre legofying."""
+    _image = Image.new('P', (1, 1))
+    _image.putpalette(palette)
+    dither = Image.FLOYDSTEINBERG if dither else Image.NONE
+    return image.im.convert('P', dither, _image.im)
 
 
-def legofy_gif(base_image, brick_image, outfile, size, palette, dither):
-    '''Alternative function that legofies animated gifs, makes use of images2gif - uses numpy!'''
-    im = base_image
+def convert_gif(image, brick, outfile, size, palette, dither):
+    """Convert animated image into legofied version."""
+    converted = []
+    for frame in [frame.copy() for frame in ImageSequence.Iterator(image)]:
+        _size = get_new_size(frame, image, size)
+        frame.thumbnail(_size, Image.ANTIALIAS)
 
-    # Read original image duration
-    original_duration = im.info['duration']
-
-    # Split image into single frames
-    frames = [frame.copy() for frame in ImageSequence.Iterator(im)]
-
-    # Create container for converted images
-    frames_converted = []
-
-    print("Number of frames to convert: " + str(len(frames)))
-
-    # Iterate through single frames
-    for i, frame in enumerate(frames, 1):
-        print("Converting frame number " + str(i))
-
-        new_size = get_new_size(frame, brick_image, size)
-        frame.thumbnail(new_size, Image.ANTIALIAS)
         if palette:
-            palette = get_lego_palette(palette)
             frame = apply_thumbnail_effects(frame, palette, dither)
-        new_frame = make_lego_image(frame, brick_image)
-        frames_converted.append(new_frame)
 
-    # Make use of images to gif function
-    images2gif.writeGif(outfile, frames_converted, duration=original_duration/1000.0, dither=0, subRectangles=False)
+        frame = make_lego_image(frame, brick)
+        converted.append(frame)
 
-def legofy_image(base_image, brick_image, outfile, size, palette, dither):
-    '''Legofy an image'''
-    new_size = get_new_size(base_image, brick_image, size)
-    base_image.thumbnail(new_size, Image.ANTIALIAS)
+    duration = image.info['duration'] / 1000
+    writeGif(outfile, converted, duration=duration, dither=0, subRectangles=False)
+
+
+def convert_image(image, brick, outfile, size, palette, dither):
+    """Convert static image into legofied version."""
+    _size = get_new_size(image, brick, size)
+    image.thumbnail(_size, Image.ANTIALIAS)
+
     if palette:
-        palette = get_lego_palette(palette)
-        base_image = apply_thumbnail_effects(base_image, palette, dither)
-    make_lego_image(base_image, brick_image).save(outfile)
+        image = apply_thumbnail_effects(image, palette, dither)
+
+    make_lego_image(image, brick).save(outfile)
 
 
 def main(image, outfile=None, size=None, palette=None, dither=False):
@@ -158,22 +142,19 @@ def main(image, outfile=None, size=None, palette=None, dither=False):
     here = os.path.realpath(os.path.dirname(__file__))
     brick = os.path.join(here, 'assets', 'bricks', '1x1.png')
 
-    im = Image.open(image)
-    brick = Image.open(brick)
-
     if dither and not palette:
         palette = 'all'
 
-    if image.lower().endswith('.gif') and im.is_animated:
-        if outfile is None:
-            outfile = get_new_filename(image)
-        legofy_gif(im, brick, outfile, size, palette, dither)
+    palette = get_lego_palette(palette) if palette else None
+    outfile = outfile if outfile else get_new_filename(image)
 
+    im = Image.open(image)
+    brick = Image.open(brick)
+
+    if image.lower().endswith('.gif') and im.is_animated:
+        convert_gif(im, brick, outfile, size, palette, dither)
     else:
-        # TODO: Is overriding ext necessary?
-        if outfile is None:
-            outfile = get_new_filename(image, '.png')
-        legofy_image(im, brick, outfile, size, palette, dither)
+        convert_image(im, brick, outfile, size, palette, dither)
 
     im.close()
     brick.close()
