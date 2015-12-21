@@ -16,7 +16,10 @@ See p2/py3 for acknowledgements & copyrights.
 import sys
 
 # TODO: Merge into single source, currently split due to binary data
-if sys.version_info.major == 3:
+if sys.version_info[0] == '3':
     from .py3 import writeGif
 else:
     from .py2 import writeGif
+
+
+__all__ = ['writeGif']
