@@ -86,7 +86,7 @@ def get_new_size(image, brick, size=None):
     # Legofied image should fit along largest original axis
     width, height = (size, size) if size else brick.size
     image_size = image.size
-    
+
     if image_size[0] > width or image_size[1] > height:
         if image_size[0] > image_size[1]:
             scale = image_size[0] // width
