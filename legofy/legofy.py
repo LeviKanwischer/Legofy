@@ -32,12 +32,12 @@ def apply_color_overlay(image, color):
     g = channels[1].point(lambda color: overlay_effect(color, overlay_green))
     b = channels[2].point(lambda color: overlay_effect(color, overlay_blue))
 
-
     channels[0].paste(r)
     channels[1].paste(g)
     channels[2].paste(b)
 
     return Image.merge(image.mode, channels)
+
 
 def overlay_effect(color, overlay):
     '''Actual overlay effect function'''
@@ -47,6 +47,7 @@ def overlay_effect(color, overlay):
         return overlay + 100
     else:
         return overlay - 133 + color
+
 
 def make_lego_image(thumbnail_image, brick_image):
     '''Create a lego version of an image from an image'''
@@ -95,6 +96,7 @@ def get_new_size(base_image, brick_image, size=None):
 
     return new_size
 
+
 def get_lego_palette(palette):
     '''Gets the palette for the specified lego palette mode'''
     legos = palettes.legos()
@@ -109,6 +111,7 @@ def apply_thumbnail_effects(image, palette, dither):
     return image.im.convert("P",
                         Image.FLOYDSTEINBERG if dither else Image.NONE,
                         palette_image.im)
+
 
 def legofy_gif(base_image, brick_image, outfile, size, palette, dither):
     '''Alternative function that legofies animated gifs, makes use of images2gif - uses numpy!'''
