@@ -1,14 +1,14 @@
 # -*- coding: utf -*-
 
 """
-legofy.cli
-----------
+legofy
+------
 
 This module contains the command line interface for legofy.
 
 
     USAGE:
-    $ python legofy/cli.py
+    $ python legofy/
 
 See README for project details.
 """

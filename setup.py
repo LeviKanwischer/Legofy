@@ -33,7 +33,7 @@ setup(name='legofy',
       packages=['legofy'],
       install_requires=['click>=5.1', 'pillow>=3.0.0'],
       include_package_data=True,
-      entry_points={'console_scripts': ['legofy = legofy.cli:main']},
+      entry_points={'console_scripts': ['legofy = legofy.__main__:main']},
       package_data={'bricks': ['*.png']},
       test_suite='nose.collector',
       tests_require=['nose'])
