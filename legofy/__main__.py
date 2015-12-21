@@ -32,11 +32,11 @@ from legofy import palettes
 @click.option('--palette', default=None,
               type=click.Choice(palettes.legos().keys()),
               help='Palette to use based on real Lego colors.')
-def main(image, output, size, palette, dither):
-    '''Legofy an image!'''
+def cli(image, output, size, palette, dither):
+    """Legofy an image!"""
     legofy.main(image, output_path=output, size=size,
                 palette_mode=palette, dither=dither)
 
 
 if __name__ == '__main__':
-    main()
+    cli()
