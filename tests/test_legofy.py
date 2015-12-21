@@ -56,7 +56,6 @@ class Create(unittest.TestCase):
 
     def test_legofy_gif(self):
         """Can we legofy an animated image?"""
-        # TODO: Why is runtime so bad?
         self.create_tmpfile('.gif')
         self.assertTrue(os.path.exists(BACON), 'Could not find image : %s' % BACON)
         legofy.convert(BACON, outfile=self.outfile)
