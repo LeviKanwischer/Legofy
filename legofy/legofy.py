@@ -13,7 +13,7 @@ This module contains the base codebase for legofy.
 
 See README for project details.
 """
-from __future__ import absolute_import, division, print_function
+from __future__ import absolute_import, division
 # TODO: Add future/builtins to package install for 3 style range
 # from builtins import range
 
