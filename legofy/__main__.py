@@ -34,7 +34,7 @@ HELP = {'image': None,
 @click.option('--size', '-s', type=int, help=HELP['size'])
 @click.option('--palette', '-p', type=Choice(LEGOS), help=HELP['palette'])
 @click.option('--dither/--no-dither', default=False, help=HELP['dither'])
-def cli(image, output, size, palette, dither):
+def cli(image, outfile, size, palette, dither):
     """Legofy an image!"""
     legofy.main(image, outfile, size, palette, dither)
 
