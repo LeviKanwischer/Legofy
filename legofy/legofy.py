@@ -165,21 +165,17 @@ def main(image, outfile=None, size=None, palette=None, dither=False):
 
     if dither and not palette:
         palette = 'all'
-        print('LEGO Palette {} selected...'.format(palette.title()))
 
     if image.lower().endswith('.gif') and im.is_animated:
         if outfile is None:
             outfile = get_new_filename(image)
-        print('Animated gif detected, will now legofy to {}'.format(outfile))
         legofy_gif(im, brick, outfile, size, palette, dither)
 
     else:
         # TODO: Is overriding ext necessary?
         if outfile is None:
             outfile = get_new_filename(image, '.png')
-        print('Static image detected, will now legofy to {}'.format(outfile))
         legofy_image(im, brick, outfile, size, palette, dither)
 
     im.close()
     brick.close()
-    print('Finished!')
