@@ -156,8 +156,6 @@ def legofy_image(base_image, brick_image, outfile, size, palette, dither):
 def main(image, outfile=None, size=None, palette=None, dither=False):
     """Legofy image or gif with brick mask."""
     here = os.path.realpath(os.path.dirname(__file__))
-
-    # TODO: Add brick asset check to tests
     brick = os.path.join(here, 'assets', 'bricks', '1x1.png')
 
     im = Image.open(image)

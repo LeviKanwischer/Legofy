@@ -118,6 +118,11 @@ class Functions(unittest.TestCase):
         for palette in palettes.legos():
             self.assertTrue(len(palettes.extend_palette(palette)) == 768)
 
+    def test_brick_asset_exists(self):
+        """Does brick asset exist?"""
+        brick = os.path.join(ASSETS, 'bricks', '1x1.png')
+        self.assertTrue(os.path.exists(brick))
+
 
 class Failures(unittest.TestCase):
     """Make sure things fail when they should"""
