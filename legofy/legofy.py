@@ -109,6 +109,29 @@ def apply_thumbnail_effects(image, palette, dither):
     return image.im.convert('P', dither, _image.im)
 
 
+def convert(image, outfile=None, size=None, palette=None, dither=False):
+    """Legofy image or gif with brick mask."""
+    here = os.path.realpath(os.path.dirname(__file__))
+    brick = os.path.join(here, 'assets', 'bricks', '1x1.png')
+
+    if dither and not palette:
+        palette = 'all'
+
+    palette = get_lego_palette(palette) if palette else None
+    outfile = outfile if outfile else get_new_filename(image)
+
+    im = Image.open(image)
+    brick = Image.open(brick)
+
+    if image.lower().endswith('.gif') and im.is_animated:
+        convert_gif(im, brick, outfile, size, palette, dither)
+    else:
+        convert_image(im, brick, outfile, size, palette, dither)
+
+    im.close()
+    brick.close()
+
+
 def convert_gif(image, brick, outfile, size, palette, dither):
     """Convert animated image into legofied version."""
     converted = []
@@ -135,26 +158,3 @@ def convert_image(image, brick, outfile, size, palette, dither):
         image = apply_thumbnail_effects(image, palette, dither)
 
     make_lego_image(image, brick).save(outfile)
-
-
-def convert(image, outfile=None, size=None, palette=None, dither=False):
-    """Legofy image or gif with brick mask."""
-    here = os.path.realpath(os.path.dirname(__file__))
-    brick = os.path.join(here, 'assets', 'bricks', '1x1.png')
-
-    if dither and not palette:
-        palette = 'all'
-
-    palette = get_lego_palette(palette) if palette else None
-    outfile = outfile if outfile else get_new_filename(image)
-
-    im = Image.open(image)
-    brick = Image.open(brick)
-
-    if image.lower().endswith('.gif') and im.is_animated:
-        convert_gif(im, brick, outfile, size, palette, dither)
-    else:
-        convert_image(im, brick, outfile, size, palette, dither)
-
-    im.close()
-    brick.close()
