@@ -30,7 +30,7 @@ legos = tuple(palettes.legos().keys())
 class LegofyGui(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.wm_title("Legofy!")
+        self.wm_title('Legofy!')
         self.iconbitmap(os.path.dirname(os.path.realpath(__file__)) + '/assets/brick.ico')
         self.resizable(False, False)
         self.body = LegofyGuiMainFrame(self)
@@ -48,10 +48,10 @@ class LegofyGuiMainFrame(tk.Frame):
         self.pathField = tk.Entry(self, width=40, textvariable=self.chosenFilePath, state=tk.DISABLED)
         self.pathField.grid(row=0, column=0, padx=10)
 
-        self.selectFile = tk.Button(self, text="Choose file...", command=self.choose_a_file)
+        self.selectFile = tk.Button(self, text='Choose file...', command=self.choose_a_file)
         self.selectFile.grid(row=0, column=1)
 
-        self.groupFrame = tk.LabelFrame(self, text="Params", padx=5, pady=5)
+        self.groupFrame = tk.LabelFrame(self, text='Params', padx=5, pady=5)
         self.groupFrame.grid(row=1, column=0, columnspan=2, )
 
         self.colorPaletteLabel = tk.Label(self.groupFrame, text = 'Color Palette')
@@ -66,18 +66,15 @@ class LegofyGuiMainFrame(tk.Frame):
         self.brickNumberScale.set(30)
         self.brickNumberScale.grid(row=1, column=0, columnspan=2, )
 
-        self.convertFile = tk.Button(text="Legofy this image!", command=self.convert_file)
+        self.convertFile = tk.Button(text='Legofy this image!', command=self.convert_file)
         self.convertFile.grid(row=2, column=0, columnspan=2)
 
 
     def choose_a_file(self):
-
         options = {}
         options['defaultextension'] = '.jpg'
-        options['filetypes'] = [('JPEG', '.jpg'),
-                                ('GIF', '.gif'),
-                                ('PNG', '.png'),]
-        options['initialdir'] = os.path.realpath("\\")
+        options['filetypes'] = [('JPEG', '.jpg'), ('GIF', '.gif'), ('PNG', '.png')]
+        options['initialdir'] = os.path.realpath('\\')
         options['initialfile'] = ''
         options['parent'] = self
         options['title'] = 'Choose a file'
@@ -90,20 +87,18 @@ class LegofyGuiMainFrame(tk.Frame):
     def convert_file(self):
         try:
             if self.chosenFile is not None:
-
                 palette = self.colorPalette.get()
 
-                if palette in legos and palette != 'none':
+                if palette in legos:
                     legofy.main(self.chosenFile.name, size=self.brickNumberScale.get(), palette=palette)
                 else:
                     legofy.main(self.chosenFile.name, size=self.brickNumberScale.get())
 
-                tkmsg.showinfo("Success!", "Your image has been legofied!")
+                tkmsg.showinfo('Success!', 'Your image has been legofied!')
             else:
-                tkmsg.showerror("File not found", "Please select a file before legofying")
+                tkmsg.showerror('File not found', 'Please select a file before legofying')
         except Exception as e:
-            tkmsg.showerror("Error", str(e))
-
+            tkmsg.showerror('Error', str(e))
 
 
 if __name__ == '__main__':
