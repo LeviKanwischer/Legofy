@@ -27,12 +27,12 @@ from . import palettes
 
 def apply_color_overlay(image, color):
     """Apply color effect overlay to image."""
-    overlay_red, overlay_green, overlay_blue = color
+    red, green, blue = color
     channels = image.split()
 
-    r = channels[0].point(lambda color: overlay_effect(color, overlay_red))
-    g = channels[1].point(lambda color: overlay_effect(color, overlay_green))
-    b = channels[2].point(lambda color: overlay_effect(color, overlay_blue))
+    r = channels[0].point(lambda color: overlay_effect(color, red))
+    g = channels[1].point(lambda color: overlay_effect(color, green))
+    b = channels[2].point(lambda color: overlay_effect(color, blue))
 
     channels[0].paste(r)
     channels[1].paste(g)
