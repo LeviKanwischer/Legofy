@@ -16,11 +16,11 @@ See README for project details.
 import click
 from click import Choice, Path
 
-from legofy import legofy
-from legofy import palettes
+from .legofy import main
+from .palettes import legos
 
 
-LEGOS = palettes.legos().keys()
+LEGOS = legos().keys()
 HELP = {'image': None,
         'outfile': None,
         'size': 'Number of brick the longest side should be legofied to.',
@@ -36,7 +36,7 @@ HELP = {'image': None,
 @click.option('--dither/--no-dither', default=False, help=HELP['dither'])
 def cli(image, outfile, size, palette, dither):
     """Legofy an image!"""
-    legofy.main(image, outfile, size, palette, dither)
+    main(image, outfile, size, palette, dither)
 
 
 if __name__ == '__main__':
