@@ -31,8 +31,8 @@ HELP = {'image': None,
 @click.command()
 @click.argument('image', required=True, type=Path(exists=True, dir_okay=False, resolve_path=True))
 @click.argument('outfile', type=Path(resolve_path=True))
-@click.option('--size', type=int, help=HELP['size'])
-@click.option('--palette', type=Choice(PALETTES), help=HELP['palette'])
+@click.option('--size', '-s', type=int, help=HELP['size'])
+@click.option('--palette', '-p', type=Choice(PALETTES), help=HELP['palette'])
 @click.option('--dither/--no-dither', default=False, help=HELP['dither'])
 def cli(image, output, size, palette, dither):
     """Legofy an image!"""
