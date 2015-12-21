@@ -96,10 +96,10 @@ def get_new_size(base_image, brick_image, size=None):
 
     return new_size
 
-def get_lego_palette(palette_mode):
+def get_lego_palette(palette):
     '''Gets the palette for the specified lego palette mode'''
     legos = palettes.legos()
-    palette = legos[palette_mode]
+    palette = legos[palette]
     return palettes.extend_palette(palette)
 
 
@@ -111,7 +111,7 @@ def apply_thumbnail_effects(image, palette, dither):
                         Image.FLOYDSTEINBERG if dither else Image.NONE,
                         palette_image.im)
 
-def legofy_gif(base_image, brick_image, outfile, size, palette_mode, dither):
+def legofy_gif(base_image, brick_image, outfile, size, palette, dither):
     '''Alternative function that legofies animated gifs, makes use of images2gif - uses numpy!'''
     im = base_image
 
@@ -132,8 +132,8 @@ def legofy_gif(base_image, brick_image, outfile, size, palette_mode, dither):
 
         new_size = get_new_size(frame, brick_image, size)
         frame.thumbnail(new_size, Image.ANTIALIAS)
-        if palette_mode:
-            palette = get_lego_palette(palette_mode)
+        if palette:
+            palette = get_lego_palette(palette)
             frame = apply_thumbnail_effects(frame, palette, dither)
         new_frame = make_lego_image(frame, brick_image)
         frames_converted.append(new_frame)
@@ -141,18 +141,18 @@ def legofy_gif(base_image, brick_image, outfile, size, palette_mode, dither):
     # Make use of images to gif function
     images2gif.writeGif(outfile, frames_converted, duration=original_duration/1000.0, dither=0, subRectangles=False)
 
-def legofy_image(base_image, brick_image, outfile, size, palette_mode, dither):
+def legofy_image(base_image, brick_image, outfile, size, palette, dither):
     '''Legofy an image'''
     new_size = get_new_size(base_image, brick_image, size)
     base_image.thumbnail(new_size, Image.ANTIALIAS)
-    if palette_mode:
-        palette = get_lego_palette(palette_mode)
+    if palette:
+        palette = get_lego_palette(palette)
         base_image = apply_thumbnail_effects(base_image, palette, dither)
     make_lego_image(base_image, brick_image).save(outfile)
 
 
 def main(image, outfile=None, size=None,
-         palette_mode=None, dither=False):
+         palette=None, dither=False):
     '''Legofy image or gif with brick_path mask'''
     image = os.path.realpath(image)
     if not os.path.isfile(image):
@@ -169,21 +169,21 @@ def main(image, outfile=None, size=None,
     base_image = Image.open(image)
     brick_image = Image.open(brick_path)
 
-    if palette_mode:
-        print ("LEGO Palette {0} selected...".format(palette_mode.title()))
+    if palette:
+        print ("LEGO Palette {0} selected...".format(palette.title()))
     elif dither:
-        palette_mode = 'all'
+        palette = 'all'
 
     if image.lower().endswith(".gif") and base_image.is_animated:
         if outfile is None:
             outfile = get_new_filename(image)
         print("Animated gif detected, will now legofy to {0}".format(outfile))
-        legofy_gif(base_image, brick_image, outfile, size, palette_mode, dither)
+        legofy_gif(base_image, brick_image, outfile, size, palette, dither)
     else:
         if outfile is None:
             outfile = get_new_filename(image, '.png')
         print("Static image detected, will now legofy to {0}".format(outfile))
-        legofy_image(base_image, brick_image, outfile, size, palette_mode, dither)
+        legofy_image(base_image, brick_image, outfile, size, palette, dither)
 
     base_image.close()
     brick_image.close()

@@ -35,7 +35,7 @@ from legofy import palettes
 def cli(image, output, size, palette, dither):
     """Legofy an image!"""
     legofy.main(image, outfile=output, size=size,
-                palette_mode=palette, dither=dither)
+                palette=palette, dither=dither)
 
 
 if __name__ == '__main__':

@@ -66,7 +66,7 @@ class Create(unittest.TestCase):
         self.create_tmpfile('.png')
         self.assertTrue(os.path.exists(FLOWER), 'Could not find image : %s' % FLOWER)
         for palette in palettes.legos():
-            legofy.main(FLOWER, outfile=self.outfile, palette_mode=palette)
+            legofy.main(FLOWER, outfile=self.outfile, palette=palette)
         self.assertTrue(os.path.getsize(self.outfile) > 0)
 
     def test_bricks_parameter(self):

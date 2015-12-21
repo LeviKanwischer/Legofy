@@ -94,7 +94,7 @@ class LegofyGuiMainFrame(tk.Frame):
                 palette = self.colorPalette.get()
 
                 if palette in legos and palette != 'none':
-                    legofy.main(self.chosenFile.name, size=self.brickNumberScale.get(), palette_mode=palette)
+                    legofy.main(self.chosenFile.name, size=self.brickNumberScale.get(), palette=palette)
                 else:
                     legofy.main(self.chosenFile.name, size=self.brickNumberScale.get())
 
