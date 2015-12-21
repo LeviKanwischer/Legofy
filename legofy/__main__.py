@@ -14,24 +14,26 @@ See README for project details.
 """
 
 import click
+from click import Choice, Path
 
 from legofy import legofy
 from legofy import palettes
 
 
+PALETTES = palettes.legos().keys()
+HELP = {'image': None,
+        'outfile': None,
+        'size': 'Number of brick the longest side should be legofied to.',
+        'dither': 'Use `dither` color approximation algorithm?',
+        'palette': 'Lego Palette to be used when converting colors.'}
+
+
 @click.command()
-@click.argument('image', required=True, type=click.Path(dir_okay=False,
-                                                        exists=True,
-                                                        resolve_path=True))
-@click.argument('outfile', default=None, required=False,
-                type=click.Path(resolve_path=True))
-@click.option('--size', default=None, type=int,
-              help='Number of bricks the longest side of the legofied image should have.')
-@click.option('--dither/--no-dither', default=False,
-              help='Use dither algorithm to spread the color approximation error.')
-@click.option('--palette', default=None,
-              type=click.Choice(palettes.legos().keys()),
-              help='Palette to use based on real Lego colors.')
+@click.argument('image', required=True, type=Path(exists=True, dir_okay=False, resolve_path=True))
+@click.argument('outfile', type=Path(resolve_path=True))
+@click.option('--size', type=int, help=HELP['size'])
+@click.option('--palette', type=Choice(PALETTES), help=HELP['palette'])
+@click.option('--dither/--no-dither', default=False, help=HELP['dither'])
 def cli(image, output, size, palette, dither):
     """Legofy an image!"""
     legofy.main(image, outfile, size, palette, dither)
