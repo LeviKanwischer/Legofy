@@ -1,8 +1,17 @@
 # -*- coding: utf-8 -*-
 
-'''Unit tests for legofy'''
-# They can be run individually, for example:
-# nosetests tests.test_legofy:Create.test_legofy_image
+"""
+Unit tests for legofy
+
+
+    USAGE:
+    $ nosetests tests
+    ... or
+    $ nosetests tests.test_legofy:Create.test_legofy_image
+
+See README for project details.
+"""
+
 import os
 import tempfile
 import unittest
