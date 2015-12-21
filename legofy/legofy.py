@@ -13,7 +13,7 @@ This module contains the base codebase for legofy.
 
 See README for project details.
 """
-from __future__ import division, print_function
+from __future__ import absolute_import, division, print_function
 # TODO: Add future/builtins to package install for 3 style range
 # from builtins import range
 
@@ -21,7 +21,7 @@ import os
 
 from PIL import Image, ImageSequence
 
-from .images2gif import writeGif
+from . import images2gif
 from . import palettes
 
 
@@ -123,7 +123,7 @@ def convert_gif(image, brick, outfile, size, palette, dither):
         converted.append(frame)
 
     duration = image.info['duration'] / 1000
-    writeGif(outfile, converted, duration=duration, dither=0, subRectangles=False)
+    images2gif.writeGif(outfile, converted, duration=duration, dither=0, subRectangles=False)
 
 
 def convert_image(image, brick, outfile, size, palette, dither):
