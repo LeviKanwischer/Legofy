@@ -4,6 +4,8 @@
 
 from setuptools import setup
 
+import legofy
+
 
 # TODO: Convert README to .rst & load into setup.py, .md doesn't work w/ pypi
 README = ('Legofy is a python program that takes a static image or gif '
@@ -20,16 +22,15 @@ CLASSIFIERS = ['Development Status :: 4 - Beta',
                'Topic :: Multimedia :: Graphics']
 
 
-# TODO: Move metadata into package & load into setup.py
-setup(name='legofy',
-      version='2.0.0dev1',
-      author='Juan Potato',
-      author_email='juanpotatodev@gmail.com',
-      url='https://github.com/JuanPotato/Legofy',
+setup(name=legofy.__title__,
+      version=legofy.__version__,
+      author=legofy.__author__,
+      author_email=legofy.__email__,
+      url=legofy.__uri__,
       description=__doc__,
       long_description=README,
       classifiers=CLASSIFIERS,
-      license='MIT',
+      license=legofy.__license__,
       packages=['legofy'],
       install_requires=['click>=5.1', 'pillow>=3.0.0'],
       include_package_data=True,

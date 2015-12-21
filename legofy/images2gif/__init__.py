@@ -17,6 +17,6 @@ import sys
 
 # TODO: Merge into single source, currently split due to binary data
 if sys.version_info.major == 3:
-    from .py3 import *
+    from .py3 import writeGif
 else:
-    from .py2 import *
+    from .py2 import writeGif

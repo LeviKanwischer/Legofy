@@ -6,7 +6,8 @@ import tempfile
 import unittest
 from PIL import Image
 
-import legofy
+from legofy import legofy
+from legofy import palettes
 
 TEST_DIR = os.path.realpath(os.path.dirname(__file__))
 FLOWER_PATH = os.path.join(TEST_DIR, '..', 'legofy', 'assets', 'flower.jpg')
@@ -103,15 +104,15 @@ class Functions(unittest.TestCase):
 
     def test_lego_palette_structure(self):
         """Validate lego palettes structured in 3's."""
-        legos = legofy.palettes.legos()
+        legos = palettes.legos()
         for palette in legos:
             self.assertFalse(len(legos[palette]) % 3)
 
     def test_lego_palette_length(self):
         """PIL palette requires 768 ints (256 colors * RGB)."""
-        legos = legofy.palettes.legos()
+        legos = palettes.legos()
         for palette in legos:
-            self.assertTrue(len(legofy.palettes.extend_palette(palette)) == 768)
+            self.assertTrue(len(palettes.extend_palette(palette)) == 768)
 
 
 class Failures(unittest.TestCase):

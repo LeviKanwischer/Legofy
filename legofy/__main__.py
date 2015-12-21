@@ -15,7 +15,7 @@ See README for project details.
 
 import click
 
-import legofy
+from legofy import legofy
 from legofy import palettes
 
 

@@ -20,7 +20,7 @@ from tkinter import filedialog
 import tkinter.messagebox as tkmsg
 import tkinter.ttk as ttk
 
-import legofy
+from legofy import legofy
 from legofy import palettes
 
 
