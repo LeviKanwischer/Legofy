@@ -13,10 +13,9 @@ This module contains the base codebase for legofy.
 
 See README for project details.
 """
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
 import os
-import sys
 
 from PIL import Image, ImageSequence
 
@@ -151,35 +150,33 @@ def legofy_image(base_image, brick_image, outfile, size, palette, dither):
     make_lego_image(base_image, brick_image).save(outfile)
 
 
-def main(image, outfile=None, size=None,
-         palette=None, dither=False):
-    '''Legofy image or gif with brick_path mask'''
-    brick_path = os.path.join(os.path.dirname(__file__), "assets",
-                              "bricks", "1x1.png")
+def main(image, outfile=None, size=None, palette=None, dither=False):
+    """Legofy image or gif with brick mask."""
+    here = os.path.realpath(os.path.dirname(__file__))
 
-    if not os.path.isfile(brick_path):
-        print('Brick asset "{0}" was not found.'.format(brick_path))
-        sys.exit(1)
+    # TODO: Add brick asset check to tests
+    brick = os.path.join(here, 'assets', 'bricks', '1x1.png')
 
-    base_image = Image.open(image)
-    brick_image = Image.open(brick_path)
+    im = Image.open(image)
+    brick = Image.open(brick)
 
-    if palette:
-        print ("LEGO Palette {0} selected...".format(palette.title()))
-    elif dither:
+    if dither and not palette:
         palette = 'all'
+        print('LEGO Palette {} selected...'.format(palette.title()))
 
-    if image.lower().endswith(".gif") and base_image.is_animated:
+    if image.lower().endswith('.gif') and im.is_animated:
         if outfile is None:
             outfile = get_new_filename(image)
-        print("Animated gif detected, will now legofy to {0}".format(outfile))
-        legofy_gif(base_image, brick_image, outfile, size, palette, dither)
+        print('Animated gif detected, will now legofy to {}'.format(outfile))
+        legofy_gif(im, brick, outfile, size, palette, dither)
+
     else:
+        # TODO: Is overriding ext necessary?
         if outfile is None:
             outfile = get_new_filename(image, '.png')
-        print("Static image detected, will now legofy to {0}".format(outfile))
-        legofy_image(base_image, brick_image, outfile, size, palette, dither)
+        print('Static image detected, will now legofy to {}'.format(outfile))
+        legofy_image(im, brick, outfile, size, palette, dither)
 
-    base_image.close()
-    brick_image.close()
-    print("Finished!")
+    im.close()
+    brick.close()
+    print('Finished!')
