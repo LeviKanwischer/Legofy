@@ -151,12 +151,12 @@ def legofy_image(base_image, brick_image, output_path, size, palette_mode, dithe
     make_lego_image(base_image, brick_image).save(output_path)
 
 
-def main(image_path, output_path=None, size=None,
+def main(image, output_path=None, size=None,
          palette_mode=None, dither=False):
     '''Legofy image or gif with brick_path mask'''
-    image_path = os.path.realpath(image_path)
-    if not os.path.isfile(image_path):
-        print('Image file "{0}" was not found.'.format(image_path))
+    image = os.path.realpath(image)
+    if not os.path.isfile(image):
+        print('Image file "{0}" was not found.'.format(image))
         sys.exit(1)
 
     brick_path = os.path.join(os.path.dirname(__file__), "assets",
@@ -166,7 +166,7 @@ def main(image_path, output_path=None, size=None,
         print('Brick asset "{0}" was not found.'.format(brick_path))
         sys.exit(1)
 
-    base_image = Image.open(image_path)
+    base_image = Image.open(image)
     brick_image = Image.open(brick_path)
 
     if palette_mode:
@@ -174,14 +174,14 @@ def main(image_path, output_path=None, size=None,
     elif dither:
         palette_mode = 'all'
 
-    if image_path.lower().endswith(".gif") and base_image.is_animated:
+    if image.lower().endswith(".gif") and base_image.is_animated:
         if output_path is None:
-            output_path = get_new_filename(image_path)
+            output_path = get_new_filename(image)
         print("Animated gif detected, will now legofy to {0}".format(output_path))
         legofy_gif(base_image, brick_image, output_path, size, palette_mode, dither)
     else:
         if output_path is None:
-            output_path = get_new_filename(image_path, '.png')
+            output_path = get_new_filename(image, '.png')
         print("Static image detected, will now legofy to {0}".format(output_path))
         legofy_image(base_image, brick_image, output_path, size, palette_mode, dither)
 
