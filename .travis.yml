@@ -27,6 +27,7 @@ script:
   - python setup.py install
   - legofy legofy/assets/flower.jpg flower_lego.png
   - legofy --palette all legofy/assets/flower.jpg flower_lego_all.png
+  - legofy legofy/assets/bacon.gif bacon_lego.gif
 
 after_success:
   - coveralls
