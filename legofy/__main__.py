@@ -20,7 +20,7 @@ from legofy import legofy
 from legofy import palettes
 
 
-PALETTES = palettes.legos().keys()
+LEGOS = palettes.legos().keys()
 HELP = {'image': None,
         'outfile': None,
         'size': 'Number of brick the longest side should be legofied to.',
@@ -32,7 +32,7 @@ HELP = {'image': None,
 @click.argument('image', required=True, type=Path(exists=True, dir_okay=False, resolve_path=True))
 @click.argument('outfile', type=Path(resolve_path=True))
 @click.option('--size', '-s', type=int, help=HELP['size'])
-@click.option('--palette', '-p', type=Choice(PALETTES), help=HELP['palette'])
+@click.option('--palette', '-p', type=Choice(LEGOS), help=HELP['palette'])
 @click.option('--dither/--no-dither', default=False, help=HELP['dither'])
 def cli(image, output, size, palette, dither):
     """Legofy an image!"""
