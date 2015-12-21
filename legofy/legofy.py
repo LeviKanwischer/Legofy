@@ -13,7 +13,7 @@ This module contains the base codebase for legofy.
 
 See README for project details.
 """
-from __future__ import absolute_import, unicode_literals
+from __future__ import absolute_import
 
 import os
 import sys
