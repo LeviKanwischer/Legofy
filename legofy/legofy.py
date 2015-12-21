@@ -154,11 +154,6 @@ def legofy_image(base_image, brick_image, outfile, size, palette, dither):
 def main(image, outfile=None, size=None,
          palette=None, dither=False):
     '''Legofy image or gif with brick_path mask'''
-    image = os.path.realpath(image)
-    if not os.path.isfile(image):
-        print('Image file "{0}" was not found.'.format(image))
-        sys.exit(1)
-
     brick_path = os.path.join(os.path.dirname(__file__), "assets",
                               "bricks", "1x1.png")
 
