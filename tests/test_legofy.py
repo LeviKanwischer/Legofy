@@ -15,10 +15,12 @@ See README for project details.
 import os
 import tempfile
 import unittest
+
 from PIL import Image
 
 from legofy import legofy
 from legofy import palettes
+
 
 TEST_DIR = os.path.realpath(os.path.dirname(__file__))
 FLOWER_PATH = os.path.join(TEST_DIR, '..', 'legofy', 'assets', 'flower.jpg')
