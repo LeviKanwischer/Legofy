@@ -16,7 +16,7 @@ See README for project details.
 import click
 from click import Choice, Path
 
-from .legofy import main
+from . import legofy
 from .palettes import legos
 
 
@@ -36,7 +36,7 @@ HELP = {'image': None,
 @click.option('--dither/--no-dither', default=False, help=HELP['dither'])
 def cli(image, outfile, size, palette, dither):
     """Legofy an image!"""
-    main(image, outfile, size, palette, dither)
+    legofy.convert(image, outfile, size, palette, dither)
 
 
 if __name__ == '__main__':

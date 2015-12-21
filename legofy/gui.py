@@ -90,9 +90,9 @@ class LegofyGuiMainFrame(tk.Frame):
                 palette = self.colorPalette.get()
 
                 if palette in legos:
-                    legofy.main(self.chosenFile.name, size=self.brickNumberScale.get(), palette=palette)
+                    legofy.convert(self.chosenFile.name, size=self.brickNumberScale.get(), palette=palette)
                 else:
-                    legofy.main(self.chosenFile.name, size=self.brickNumberScale.get())
+                    legofy.convert(self.chosenFile.name, size=self.brickNumberScale.get())
 
                 tkmsg.showinfo('Success!', 'Your image has been legofied!')
             else:

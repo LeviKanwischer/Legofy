@@ -137,7 +137,7 @@ def convert_image(image, brick, outfile, size, palette, dither):
     make_lego_image(image, brick).save(outfile)
 
 
-def main(image, outfile=None, size=None, palette=None, dither=False):
+def convert(image, outfile=None, size=None, palette=None, dither=False):
     """Legofy image or gif with brick mask."""
     here = os.path.realpath(os.path.dirname(__file__))
     brick = os.path.join(here, 'assets', 'bricks', '1x1.png')
