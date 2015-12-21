@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 '''Unit tests for legofy'''
 # They can be run individually, for example:
 # nosetests tests.test_legofy:Create.test_legofy_image
