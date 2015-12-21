@@ -14,15 +14,18 @@ This module contains the base codebase for legofy.
 See README for project details.
 """
 from __future__ import absolute_import, division
-# TODO: Add future/builtins to package install for 3 style range
-# from builtins import range
 
 import os
+import sys
 
 from PIL import Image, ImageSequence
 
 from . import images2gif
 from . import palettes
+
+
+if sys.version_info[0] < 3:
+    range = xrange
 
 
 def apply_color_overlay(image, color):
