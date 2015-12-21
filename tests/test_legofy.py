@@ -32,18 +32,18 @@ class Create(unittest.TestCase):
     """Unit tests that create files."""
 
     def setUp(self):
-        self.out_path = None
+        self.outfile = None
 
     def tearDown(self):
-        if self.out_path:
-            os.remove(self.out_path)
+        if self.outfile:
+            os.remove(self.outfile)
 
     def create_tmpfile(self, suffix):
-        """Creates a temporary file and stores the path in self.out_path"""
-        handle, self.out_path = tempfile.mkstemp(prefix='lego_', suffix=suffix)
+        """Creates a temporary file and stores the path in self.outfile"""
+        handle, self.outfile = tempfile.mkstemp(prefix='lego_', suffix=suffix)
         os.close(handle)
-        self.assertTrue(os.path.exists(self.out_path))
-        self.assertTrue(os.path.getsize(self.out_path) == 0)
+        self.assertTrue(os.path.exists(self.outfile))
+        self.assertTrue(os.path.getsize(self.outfile) == 0)
 
     # TODO: Move repeated asset check into seperate function
 
@@ -51,45 +51,45 @@ class Create(unittest.TestCase):
         """Can we legofy a static image?"""
         self.create_tmpfile('.png')
         self.assertTrue(os.path.exists(FLOWER), 'Could not find image : %s' % FLOWER)
-        legofy.main(FLOWER, output_path=self.out_path)
-        self.assertTrue(os.path.getsize(self.out_path) > 0)
+        legofy.main(FLOWER, outfile=self.outfile)
+        self.assertTrue(os.path.getsize(self.outfile) > 0)
 
     def test_legofy_gif(self):
         """Can we legofy an animated image?"""
         self.create_tmpfile('.gif')
         self.assertTrue(os.path.exists(BACON), 'Could not find image : %s' % BACON)
-        legofy.main(BACON, output_path=self.out_path)
-        self.assertTrue(os.path.getsize(self.out_path) > 0)
+        legofy.main(BACON, outfile=self.outfile)
+        self.assertTrue(os.path.getsize(self.outfile) > 0)
 
     def test_legofy_palette(self):
         """Can we use palettes?"""
         self.create_tmpfile('.png')
         self.assertTrue(os.path.exists(FLOWER), 'Could not find image : %s' % FLOWER)
         for palette in palettes.legos():
-            legofy.main(FLOWER, output_path=self.out_path, palette_mode=palette)
-        self.assertTrue(os.path.getsize(self.out_path) > 0)
+            legofy.main(FLOWER, outfile=self.outfile, palette_mode=palette)
+        self.assertTrue(os.path.getsize(self.outfile) > 0)
 
     def test_bricks_parameter(self):
         """Can we specify --brick parameter?"""
         self.create_tmpfile('.png')
-        legofy.main(FLOWER, output_path=self.out_path, size=5)
-        size5 = os.path.getsize(self.out_path)
-        legofy.main(FLOWER, output_path=self.out_path, size=10)
-        size10 = os.path.getsize(self.out_path)
+        legofy.main(FLOWER, outfile=self.outfile, size=5)
+        size5 = os.path.getsize(self.outfile)
+        legofy.main(FLOWER, outfile=self.outfile, size=10)
+        size10 = os.path.getsize(self.outfile)
         self.assertTrue(size5 > 0)
         self.assertTrue(size5 < size10)
 
     def test_small_brick(self):
         """Test hitting the minimal brick size"""
         self.create_tmpfile('.png')
-        legofy.main(FLOWER, output_path=self.out_path, size=1)
-        self.assertTrue(Image.open(self.out_path).size == (30, 30))
+        legofy.main(FLOWER, outfile=self.outfile, size=1)
+        self.assertTrue(Image.open(self.outfile).size == (30, 30))
 
     def test_dither_without_palette(self):
         """Dithering without a palette should still work"""
         self.create_tmpfile('.png')
-        legofy.main(FLOWER, output_path=self.out_path, dither=True)
-        self.assertTrue(os.path.getsize(self.out_path) > 0)
+        legofy.main(FLOWER, outfile=self.outfile, dither=True)
+        self.assertTrue(os.path.getsize(self.outfile) > 0)
 
 
 class Functions(unittest.TestCase):

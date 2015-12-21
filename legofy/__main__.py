@@ -34,7 +34,7 @@ from legofy import palettes
               help='Palette to use based on real Lego colors.')
 def cli(image, output, size, palette, dither):
     """Legofy an image!"""
-    legofy.main(image, output_path=output, size=size,
+    legofy.main(image, outfile=output, size=size,
                 palette_mode=palette, dither=dither)
 
 
