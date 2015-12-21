@@ -113,7 +113,7 @@ def convert_gif(image, brick, outfile, size, palette, dither):
     """Convert animated image into legofied version."""
     converted = []
     for frame in [frame.copy() for frame in ImageSequence.Iterator(image)]:
-        _size = get_new_size(frame, image, size)
+        _size = get_new_size(frame, brick, size)
         frame.thumbnail(_size, Image.ANTIALIAS)
 
         if palette:
