@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 
-"""Make images look as if they are made out of 1x1 LEGO blocks"""
-
 from setuptools import setup
 
 import legofy
 
 
-# TODO: Convert README to .rst & load into setup.py, .md doesn't work w/ pypi
-README = ('Legofy is a python program that takes a static image or gif '
-          'and makes it so that it looks as if it was built out of LEGO.')
+def _load(filename):
+    """Load file contents from package base path."""
+    base = os.path.dirname(os.path.abspath(__file__))
+    loadfile = os.path.join(base, filename)
+    with open(loadfile, 'r') as f_in:
+        return f_in.read()
+
+
+README = _load('README.rst')
 
 CLASSIFIERS = ['Development Status :: 4 - Beta',
                'License :: OSI Approved :: MIT License',
@@ -27,7 +31,7 @@ setup(name=legofy.__title__,
       author=legofy.__author__,
       author_email=legofy.__email__,
       url=legofy.__uri__,
-      description=__doc__,
+      description=legofy.__summary__,
       long_description=README,
       classifiers=CLASSIFIERS,
       license=legofy.__license__,

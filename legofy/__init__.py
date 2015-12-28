@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 """
-Legofy is a python program that takes a static image or gif and makes it
-so that it looks as if it was built out of LEGO.
+Legofy is a python package and command line utility that takes a static
+image or gif and makes it looks as though it was constructed out of
+lego bricks.
 
 
 See README for project details.
