@@ -77,7 +77,7 @@ def get_new_filename(infile, ext=None):
     folder, basename = os.path.split(infile)
     base, extention = os.path.splitext(basename)
     extention = ext if ext else extention
-    outfile = os.path.join(folder, '{}_lego{}'.format(base, extention))
+    outfile = os.path.join(folder, '%s_lego%s' % (base, extention))
     return outfile
 
 
