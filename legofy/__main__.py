@@ -16,11 +16,11 @@ See README for project details.
 import click
 from click import Choice, Path
 
-from . import legofy
-from .palettes import legos
+from legofy import legofy
+from legofy import palettes
 
 
-LEGOS = legos().keys()
+LEGOS = palettes.legos().keys()
 HELP = {'image': None,
         'outfile': None,
         'size': 'Number of brick the longest side should be legofied to.',

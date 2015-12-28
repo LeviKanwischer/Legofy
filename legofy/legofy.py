@@ -20,8 +20,8 @@ import sys
 
 from PIL import Image, ImageSequence
 
-from . import images2gif
-from . import palettes
+from legofy import images2gif
+from legofy import palettes
 
 
 if sys.version_info[0] < 3:

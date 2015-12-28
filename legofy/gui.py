@@ -24,7 +24,7 @@ from legofy import legofy
 from legofy import palettes
 
 
-legos = tuple(palettes.legos().keys())
+LEGOS = tuple(palettes.legos().keys())
 
 
 class LegofyGui(tk.Tk):
@@ -58,7 +58,7 @@ class LegofyGuiMainFrame(tk.Frame):
         self.colorPaletteLabel.grid(row=0, column=0 )
 
         self.colorPalette = ttk.Combobox(self.groupFrame)
-        self.colorPalette['values'] = legos
+        self.colorPalette['values'] = LEGOS
         self.colorPalette.current(0)
         self.colorPalette.grid(row=0, column=1)
 
@@ -89,7 +89,7 @@ class LegofyGuiMainFrame(tk.Frame):
             if self.chosenFile is not None:
                 palette = self.colorPalette.get()
 
-                if palette in legos:
+                if palette in LEGOS:
                     legofy.convert(self.chosenFile.name, size=self.brickNumberScale.get(), palette=palette)
                 else:
                     legofy.convert(self.chosenFile.name, size=self.brickNumberScale.get())
