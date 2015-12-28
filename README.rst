@@ -42,15 +42,9 @@ Forks
 ~~~~~
 -  JavaScript: `Legofy <https://github.com/Wildhoney/Legofy>`__
 
-.. |Before| image:: https://raw.githubusercontent.com/JuanPotato/Legofy/master/legofy/assets/flower.jpg
-    :width: 630
-    :height: 930
-    :scale: 50%
+.. |Before| image:: https://raw.githubusercontent.com/LeviKanwischer/Legofy/master/legofy/assets/readme_original.jpeg
 
-.. |After| image:: https://raw.githubusercontent.com/JuanPotato/Legofy/master/legofy/assets/flower_lego.png
-    :width: 630
-    :height: 930
-    :scale: 50%
+.. |After| image:: https://raw.githubusercontent.com/LeviKanwischer/Legofy/master/legofy/assets/readme_lego.png
 
 .. |Build Status| image:: https://travis-ci.org/JuanPotato/Legofy.svg?branch=master
    :target: https://travis-ci.org/JuanPotato/Legofy
