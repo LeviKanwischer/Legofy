@@ -15,7 +15,7 @@ def _load(filename):
 
 README = _load('README.rst')
 
-CLASSIFIERS = ['Development Status :: 4 - Beta',
+CLASSIFIERS = ['Development Status :: 5 - Production/Stable',
                'License :: OSI Approved :: MIT License',
                'Programming Language :: Python',
                'Programming Language :: Python :: 2.6',

@@ -12,7 +12,7 @@ See README for project details.
 
 __title__ = 'legofy'
 __summary__ = 'Make images look as if they are made out of 1x1 LEGO blocks'
-__version__ = '2.0.0.dev1'
+__version__ = '2.0.0'
 __author__ = 'Juan Potato'
 __maintainer__ = 'Juan Potato'
 __email__ = 'juanpotatodev@gmail.com'
