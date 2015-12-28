@@ -12,6 +12,7 @@ This module contains the command line interface for legofy.
 
 See README for project details.
 """
+from __future__ import absolute_import
 
 import click
 from click import Choice, Path

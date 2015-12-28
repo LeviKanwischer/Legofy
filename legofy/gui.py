@@ -12,6 +12,7 @@ This module contains a gui for legofy.
 
 See README for project details.
 """
+from __future__ import absolute_import
 
 import os
 
@@ -54,8 +55,8 @@ class LegofyGuiMainFrame(tk.Frame):
         self.groupFrame = tk.LabelFrame(self, text='Params', padx=5, pady=5)
         self.groupFrame.grid(row=1, column=0, columnspan=2, )
 
-        self.colorPaletteLabel = tk.Label(self.groupFrame, text = 'Color Palette')
-        self.colorPaletteLabel.grid(row=0, column=0 )
+        self.colorPaletteLabel = tk.Label(self.groupFrame, text='Color Palette')
+        self.colorPaletteLabel.grid(row=0, column=0)
 
         self.colorPalette = ttk.Combobox(self.groupFrame)
         self.colorPalette['values'] = LEGOS
@@ -69,7 +70,6 @@ class LegofyGuiMainFrame(tk.Frame):
         self.convertFile = tk.Button(text='Legofy this image!', command=self.convert_file)
         self.convertFile.grid(row=2, column=0, columnspan=2)
 
-
     def choose_a_file(self):
         options = {}
         options['defaultextension'] = '.jpg'
@@ -82,7 +82,6 @@ class LegofyGuiMainFrame(tk.Frame):
         self.chosenFile = filedialog.askopenfile(mode='r', **options)
         if self.chosenFile:
             self.chosenFilePath.set(self.chosenFile.name)
-
 
     def convert_file(self):
         try:
