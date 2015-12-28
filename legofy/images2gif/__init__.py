@@ -19,6 +19,6 @@ import sys
 
 # TODO: Merge into single source, currently split due to binary data
 if sys.version_info[0] < 3:
-    from images2gif.py2 import writeGif
+    from legofy.images2gif.py2 import writeGif
 else:
-    from images2gif.py3 import writeGif
+    from legofy.images2gif.py3 import writeGif
